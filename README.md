@@ -6,9 +6,9 @@
 
 <p align="center">
   <a href="https://www.java.com/zh_CN/"><img src="https://img.shields.io/badge/JDK-1.8-yellow.svg" alt="JDK"></a>
-  <a href="https://github.com/xgl-charon/JinTianFindHouse/releases"><img src="https://img.shields.io/github/v/release/xgl-charon/JinTianFindHouse" alt="版本"></a>
-  <a href="#"><img src="https://img.shields.io/github/last-commit/xgl-charon/JinTianFindHouse" alt="download"></a>
-  <a href="#"><img src="https://img.shields.io/github/stars/xgl-charon/JinTianFindHouse?style=social" alt="star"></a>
+  <a href="https://github.com/xgl-charon/JinTianFindHouse/releases"><img src="https://img.shields.io/github/v/release/xgl-charon/changyou" alt="版本"></a>
+  <a href="#"><img src="https://img.shields.io/github/last-commit/xgl-charon/changyou" alt="download"></a>
+  <a href="#"><img src="https://img.shields.io/github/stars/xgl-charon/changyou?style=social" alt="star"></a>
 
 ## 1. 简介
 
