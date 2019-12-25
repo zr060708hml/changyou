@@ -23,7 +23,7 @@
 ### 2.1 下载最新的安装包
 
 ```
-curl -L https://github.com/xgl-charon/JinTianFindHouse/archive/1.0.zip
+curl -L https://github.com/xgl-charon/changyou/releases/tag/1.0
 ```
 
 ### 2.2 将项目导入到idea
