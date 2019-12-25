@@ -3,11 +3,13 @@ package cn.changyou.item.pojo;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author xgl
  * @create 2019-12-12 17:24
  */
+@Table(name="tb_category")
 public class Category {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -41,7 +43,7 @@ public class Category {
         return parentId;
     }
 
-    public void setIsParentId(Long parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -49,7 +51,7 @@ public class Category {
         return isParent;
     }
 
-    public void setParent(Boolean parent) {
+    public void setIsParent(Boolean parent) {
         isParent = parent;
     }
 
