@@ -1,0 +1,4 @@
+# Project exclude paths
+/changyou-gateway/target/
+/changyou-item/changyou-item-service/target/
+/changyou-registry/target/
