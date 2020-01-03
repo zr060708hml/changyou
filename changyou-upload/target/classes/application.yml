@@ -1,0 +1,21 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: upload-service
+  servlet:
+    multipart:
+      max-file-size: 5MB
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10086/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 5 #心跳5s
+    lease-expiration-duration-in-seconds: 15 #过期时间
+aliyun:
+  endpoint: oss-cn-beijing.aliyuncs.com
+  accessKeyId: LTAI4ForBFfSH5zuq9AU8kve
+  accessKeySecret: 3Gni2Wlpet2rYQz7eBXfNlc8zfPGVs
+  bucketName: xglpan
+  urlPrefix: https://cdn.xgl6.top/
