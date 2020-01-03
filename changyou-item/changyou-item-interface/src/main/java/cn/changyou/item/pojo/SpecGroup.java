@@ -7,7 +7,7 @@ import java.util.List;
  * @author xgl
  * @create 2019-12-19 22:36
  */
-@Table(name = "tb_spec_group")
+@Table(name = "cy_spec_group")
 public class SpecGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -6,7 +6,7 @@ import javax.persistence.*;
  * @author xgl
  * @create 2019-12-19 22:37
  */
-@Table(name = "tb_spec_param")
+@Table(name = "cy_spec_param")
 public class SpecParam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
