@@ -11,6 +11,12 @@ import java.util.List;
  * @create 2019-12-12 17:32
  */
 public interface CategoryMapper extends Mapper<Category> {
+    /**
+     * 品牌修改回显数据
+     *
+     * @param bid 品牌id
+     * @return
+     */
     @Select("SELECT * FROM cy_category WHERE id IN (SELECT category_id FROM cy_category_brand WHERE brand_id = #{bid})")
     List<Category> queryByBrandId(Long bid);
 }
