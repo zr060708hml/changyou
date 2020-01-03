@@ -46,6 +46,14 @@ public class CategoryService {
         this.categoryMapper.updateByPrimaryKeySelective(category);
     }
 
+    /**
+     * 品牌管理回显
+     * @param bid  品牌id
+     * @return
+     */
+    public List<Category> queryByBrandId(Long bid) {
+        return this.categoryMapper.queryByBrandId(bid);
+    }
     public Category getCategory(Long id) {
         return this.categoryMapper.selectByPrimaryKey(id);
     }
