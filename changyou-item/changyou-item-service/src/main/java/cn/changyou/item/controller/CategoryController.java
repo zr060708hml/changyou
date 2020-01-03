@@ -78,4 +78,17 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    /**
+     * 修改品牌回显数据
+     * @param bid 品牌id
+     * @return
+     */
+    @GetMapping("bid/{bid}")
+    public ResponseEntity<List<Category>> queryByBrandId(@PathVariable("bid") Long bid) {
+        List<Category> list = this.categoryService.queryByBrandId(bid);
+        if (list == null || list.size() < 1) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(list);
+    }
 }
