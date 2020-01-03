@@ -1,0 +1,16 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: sms-service
+  rabbitmq:
+    host: 182.92.2.24
+    username: changyou
+    password: changyou
+    virtual-host: /changyou
+changyou:
+  sms:
+    accessKeyId: LTAI4Fo8FbHWuY4YHWuDWtQ6 # 你自己的accessKeyId
+    accessKeySecret: wPOTqTkvs4GDf5T0EqcKz4q5YDPWTI # 你自己的AccessKeySecret
+    signName: 畅优商城 # 签名名称
+    verifyCodeTemplate: SMS_181505065 # 模板名称
