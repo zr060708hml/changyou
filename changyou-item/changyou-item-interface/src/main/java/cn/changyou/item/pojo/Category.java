@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * @author xgl
  * @create 2019-12-12 17:24
  */
-@Table(name="tb_category")
+@Table(name="cy_category")
 public class Category {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -61,5 +61,16 @@ public class Category {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", parentId=" + parentId +
+                ", isParent=" + isParent +
+                ", sort=" + sort +
+                '}';
     }
 }
