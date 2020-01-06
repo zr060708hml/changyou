@@ -69,7 +69,7 @@ public class SpecificationController {
      */
     @GetMapping("params")
     public ResponseEntity<List<SpecParam>> queryParamById(@RequestParam(value = "gid",required = false)Long gid, @RequestParam(value = "cid",required = false)Long cid) {
-        List<SpecParam> params = this.specificationSevice.queryParamById(gid);
+        List<SpecParam> params = this.specificationSevice.queryParamById(gid,cid);
         if(CollectionUtils.isEmpty(params)){
             return ResponseEntity.notFound().build();
         }

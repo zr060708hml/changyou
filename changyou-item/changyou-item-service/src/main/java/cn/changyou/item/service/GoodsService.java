@@ -49,19 +49,15 @@ public class GoodsService {
     /**
      * 分页查询所有的商品
      *
-     * @param key      要搜索的商品
      * @param saleable 是否上架
      * @param page     当前页码,默认是1
      * @param rows     每页显示多少行
      * @return 商品信息
      */
-    public PageResult<SpuBo> querySpuBoByPage(String key, Boolean saleable, Integer page, Integer rows) {
+    public PageResult<SpuBo> querySpuBoByPage(Boolean saleable, Integer page, Integer rows) {
 
         Example example = new Example(Spu.class);
         Example.Criteria criteria = example.createCriteria();
-        if (StringUtils.isNotBlank(key)) {
-            criteria.andLike("title", "%" + key + "%");
-        }
         if (saleable != null) {
             criteria.andEqualTo("saleable", saleable);
         }
@@ -91,17 +87,21 @@ public class GoodsService {
      *
      * @param spu SpuBo的实体类
      */
-    public void save(SpuBo spu) {
+    public int save(SpuBo spu) {
         // 保存spu
         spu.setSaleable(true);
         spu.setValid(true);
         spu.setCreateTime(new Date());
         spu.setLastUpdateTime(spu.getCreateTime());
-        this.spuMapper.insert(spu);
+        int i = this.spuMapper.insert(spu);
         // 保存spu详情
         spu.getSpuDetail().setSpuId(spu.getId());
-        this.spuDetailMapper.insert(spu.getSpuDetail());
+        int i1 = this.spuDetailMapper.insert(spu.getSpuDetail());
         saveSkuAndStock(spu.getSkus(), spu.getId());
+        if(i < 0 || i1 < 0){
+            return -1;
+        }
+        return 1;
     }
 
     /**
@@ -153,6 +153,11 @@ public class GoodsService {
         return -1;
     }
 
+    /**
+     * 查询商品详细信息 SKU
+     * @param spuId spu表的商品id
+     * @return 属于spu类中的对应的sku商品
+     */
     public List<Sku> querySkuBySpuId(Long spuId){
         Sku record = new Sku();
         record.setSpuId(spuId);
@@ -200,5 +205,9 @@ public class GoodsService {
 
     public void setSpuDetailMapper(SpuDetailMapper spuDetailMapper) {
         this.spuDetailMapper = spuDetailMapper;
+    }
+
+    public Sku querySkuBySkuId(Long skuId) {
+        return skuMapper.selectByPrimaryKey(skuId);
     }
 }
