@@ -10,7 +10,7 @@ import java.util.Date;
  * @author xgl
  * @create 2019-12-20 14:18
  */
-@Table(name = "tb_spu")
+@Table(name = "cy_spu")
 public class Spu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

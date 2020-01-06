@@ -43,7 +43,6 @@ public class CategoryController {
      */
     @PostMapping
     public ResponseEntity<Void> saveCategory(@RequestBody Category category){
-        System.out.println(category);
         categoryService.saveCategory(category);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

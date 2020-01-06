@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.swing.plaf.multi.MultiLabelUI;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +28,16 @@ public class BrandService {
         this.brandMapper = brandMapper;
     }
 
+    /**
+     * 新增品牌
+     *
+     * @param key    查询的条件
+     * @param desc   排序方式
+     * @param page   第几页,默认是1
+     * @param rows   每页显示多少行,默认是5
+     * @param sortBy 使用哪个字段排序
+     * @return 分页后的数据
+     */
     public PageResult<Brand> querySpuByPage(String key, Boolean desc, Integer page, Integer rows, String sortBy) {
         Example example = new Example(Brand.class);
         Example.Criteria criteria = example.createCriteria();
@@ -42,6 +54,13 @@ public class BrandService {
         return new PageResult<>(pageInfo.getTotal(), pageInfo.getList());
     }
 
+    /**
+     * 新增品牌
+     *
+     * @param brand 品牌实体
+     * @param cids  分类id的集合
+     * @return 受影响行数
+     */
     public int saveBrand(Brand brand, List<Long> cids) {
         int result1 = brandMapper.insert(brand);
         int result2 = -1;
@@ -54,6 +73,13 @@ public class BrandService {
         return 1;
     }
 
+    /**
+     * 修改品牌信息
+     *
+     * @param brand 品牌实体类
+     * @param cids  分类id的集合
+     * @return 受影响行数
+     */
     public int updateBrand(Brand brand, List<Long> cids) {
         brandMapper.updateByPrimaryKeySelective(brand);
         int i = -1;
@@ -64,12 +90,33 @@ public class BrandService {
         return i;
     }
 
-    public int deleteBrand(Long bid) {
-        int result1 = brandMapper.deleteByPrimaryKey(bid);
-        int result2 = brandMapper.deleteBrandAndCategroy(bid);
+    /**
+     * 删除品牌
+     *
+     * @param bids 品牌id的集合
+     * @return 受影响行数
+     */
+    public int deleteBrand(List<Long> bids) {
+        int result1 = -1;
+        int result2 = -1;
+        for (Long bid : bids) {
+            result1 = brandMapper.deleteByPrimaryKey(bid);
+            result2 = brandMapper.deleteBrandAndCategroy(bid);
+        }
         if (result1 < 0 || result2 < 0) {
             return -1;
         }
         return 1;
+    }
+
+    /**
+     * 查询品牌名称
+     *
+     * @param cid 分类id
+     * @return 品牌分类
+     */
+    public List<Brand> queryBrandById(Long cid) {
+        List<Brand> brands = brandMapper.queryBrandById(cid);
+        return brands;
     }
 }
