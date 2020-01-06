@@ -7,7 +7,7 @@ import javax.persistence.Table;
  * @author xgl
  * @create 2019-12-21 14:19
  */
-@Table(name = "tb_stock")
+@Table(name = "cy_stock")
 public class Stock {
     @Id
     private Long skuId;

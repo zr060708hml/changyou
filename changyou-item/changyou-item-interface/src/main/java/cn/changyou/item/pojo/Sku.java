@@ -7,7 +7,7 @@ import java.util.Date;
  * @author xgl
  * @create 2019-12-21 14:18
  */
-@Table(name = "tb_sku")
+@Table(name = "cy_sku")
 public class Sku {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

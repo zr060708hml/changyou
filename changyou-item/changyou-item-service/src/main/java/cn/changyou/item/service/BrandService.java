@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.swing.plaf.multi.MultiLabelUI;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -91,15 +93,30 @@ public class BrandService {
     /**
      * 删除品牌
      *
-     * @param bid 品牌id
+     * @param bids 品牌id的集合
      * @return 受影响行数
      */
-    public int deleteBrand(Long bid) {
-        int result1 = brandMapper.deleteByPrimaryKey(bid);
-        int result2 = brandMapper.deleteBrandAndCategroy(bid);
+    public int deleteBrand(List<Long> bids) {
+        int result1 = -1;
+        int result2 = -1;
+        for (Long bid : bids) {
+            result1 = brandMapper.deleteByPrimaryKey(bid);
+            result2 = brandMapper.deleteBrandAndCategroy(bid);
+        }
         if (result1 < 0 || result2 < 0) {
             return -1;
         }
         return 1;
+    }
+
+    /**
+     * 查询品牌名称
+     *
+     * @param cid 分类id
+     * @return 品牌分类
+     */
+    public List<Brand> queryBrandById(Long cid) {
+        List<Brand> brands = brandMapper.queryBrandById(cid);
+        return brands;
     }
 }

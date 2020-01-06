@@ -70,7 +70,7 @@ public class BrandController {
      * @return 成功或失败的状态码
      */
     @PutMapping
-    public ResponseEntity<Void> updateBrand(@RequestBody Brand brand, @RequestParam("cids") List<Long> cids) {
+    public ResponseEntity<Void> updateBrand(Brand brand, @RequestParam("cids") List<Long> cids) {
         int i = this.brandservice.updateBrand(brand, cids);
         if (i < 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -81,15 +81,21 @@ public class BrandController {
     /**
      * 删除品牌
      *
-     * @param bid 品牌id
+     * @param bids 品牌id的集合
      * @return 成功或失败的状态码
      */
-    @DeleteMapping("/bid/{bid}")
-    public ResponseEntity<Void> deleteBrand(@RequestParam("bid") Long bid) {
-        int i = this.brandservice.deleteBrand(bid);
+    @DeleteMapping("{bid}")
+    public ResponseEntity<Void> deleteBrand(@PathVariable("bid") List<Long> bids) {
+        int i = this.brandservice.deleteBrand(bids);
         if (i < 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("cid/{cid}")
+    public ResponseEntity<List<Brand>> queryBrandById(@PathVariable("cid") Long cid){
+        List<Brand> brands = brandservice.queryBrandById(cid);
+        return ResponseEntity.ok(brands);
     }
 }

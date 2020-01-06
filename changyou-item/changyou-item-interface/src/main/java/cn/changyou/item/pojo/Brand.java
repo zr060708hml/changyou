@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * @author xgl
  * @create 2019-12-13 14:24
  */
-@Table(name = "tb_brand")
+@Table(name = "cy_brand")
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

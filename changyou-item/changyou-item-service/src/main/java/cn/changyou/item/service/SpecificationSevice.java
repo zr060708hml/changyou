@@ -67,7 +67,7 @@ public class SpecificationSevice {
      * @param gid
      * @return
      */
-    public List<SpecParam> queryParamById(long gid) {
+    public List<SpecParam> queryParamById(Long gid) {
         SpecParam specParam = new SpecParam();
         specParam.setGroupId(gid);
         return this.specParamMapper.select(specParam);
@@ -91,8 +91,12 @@ public class SpecificationSevice {
      * 删除参数信息
      * @param id
      */
-    public void deleteSpecParam(long id){
+    public void deleteSpecParam(Long id){
         this.specParamMapper.deleteByPrimaryKey(id);
     }
 
+    public List<SpecParam> queryParamByCid(Long cid){
+        List<SpecParam> specParams = specParamMapper.queryParamByCid(cid);
+        return specParams;
+    }
 }
