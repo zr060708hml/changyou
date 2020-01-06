@@ -4,6 +4,8 @@ import cn.changyou.sms.config.SmsProperties;
 import cn.changyou.sms.utils.SmsUtils;
 import com.aliyuncs.exceptions.ClientException;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.ExchangeTypes;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
@@ -25,6 +27,7 @@ public class SmsListener {
     private SmsUtils smsUtils;
     @Autowired
     private SmsProperties smsProperties;
+    private Logger log = LoggerFactory.getLogger(SmsListener.class);
     @RabbitListener(bindings = @QueueBinding(
             value = @Queue(value = "changyou.sms.queue",durable = "true"),
             exchange = @Exchange(value = "changyou.sms.exchange",ignoreDeclarationExceptions = "true",type = ExchangeTypes.TOPIC),
@@ -34,10 +37,11 @@ public class SmsListener {
         if (CollectionUtils.isEmpty(map)){
             return;
         }
+
         String phone = map.get("phone");
-        System.out.println(phone);
+        log.info("从mq拿到的手机号为,{}",phone);
         String code = map.get("code");
-        System.out.println(code);
+        log.info("从mq拿到的要发送的验证码是,{}",code);
         if (StringUtils.isNoneBlank(phone) && StringUtils.isNoneBlank(code)){
             smsUtils.sendSms(phone,code,smsProperties.getSignName(),smsProperties.getVerifyCodeTemplate());
         }
