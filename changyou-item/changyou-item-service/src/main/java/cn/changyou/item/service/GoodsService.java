@@ -206,4 +206,8 @@ public class GoodsService {
     public void setSpuDetailMapper(SpuDetailMapper spuDetailMapper) {
         this.spuDetailMapper = spuDetailMapper;
     }
+
+    public Sku querySkuBySkuId(Long skuId) {
+        return skuMapper.selectByPrimaryKey(skuId);
+    }
 }
