@@ -25,6 +25,8 @@ public class Spu {
     private Boolean valid;// 是否有效，逻辑删除用
     private Date createTime;// 创建时间
     private Date lastUpdateTime;// 最后修改时间
+    private int sort; //首页商品排序
+    private Boolean isHomeGoods; //是否在首页显示
 
 
     public Long getId() {
@@ -115,6 +117,22 @@ public class Spu {
         this.lastUpdateTime = lastUpdateTime;
     }
 
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
+
+    public Boolean getIsHomeGoods() {
+        return isHomeGoods;
+    }
+
+    public void setIsHomeGoods(Boolean isHomeGoods) {
+        this.isHomeGoods = isHomeGoods;
+    }
+
     @Override
     public String toString() {
         return "Spu{" +
@@ -129,6 +147,8 @@ public class Spu {
                 ", valid=" + valid +
                 ", createTime=" + createTime +
                 ", lastUpdateTime=" + lastUpdateTime +
+                ", sort=" + sort +
+                ", isHomeGoods=" + isHomeGoods +
                 '}';
     }
 }

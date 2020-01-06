@@ -3,6 +3,8 @@ package cn.changyou.item.controller;
 import cn.changyou.common.pojo.PageResult;
 import cn.changyou.item.pojo.Brand;
 import cn.changyou.item.service.BrandService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,18 +30,14 @@ public class BrandController {
     }
 
     /**
-     * @param key    查询的条件
      * @param page   第几页,默认是1
      * @param rows   每页显示多少行,默认是5
-     * @param sortBy 使用哪个字段排序
-     * @param desc   排序方式
      * @return 成功或失败的状态码
      */
     @GetMapping("page")
-    public ResponseEntity<PageResult<Brand>> queryBrandsBypage(@RequestParam(value = "key", required = false) String key, @RequestParam(value = "page", defaultValue = "1") Integer page, @RequestParam(value = "rows", defaultValue = "5") Integer rows, @RequestParam(value = "sortBy", required = false) String sortBy, @RequestParam(value = "desc", required = false) Boolean desc) {
-
-        PageResult<Brand> result = this.brandservice.querySpuByPage(key, desc, page, rows, sortBy);
-        if (CollectionUtils.isEmpty(result.getItems())) {
+    public ResponseEntity<PageResult<Brand>> queryBrandsBypage( @RequestParam(value = "page", defaultValue = "1") Integer page, @RequestParam(value = "rows", defaultValue = "5") Integer rows) {
+        PageResult<Brand> result = this.brandservice.querySpuByPage(page, rows);
+        if (result == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(result);
@@ -93,6 +91,12 @@ public class BrandController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    /**
+     * 查询品牌名称
+     *
+     * @param cid 分类id
+     * @return 品牌
+     */
     @GetMapping("cid/{cid}")
     public ResponseEntity<List<Brand>> queryBrandById(@PathVariable("cid") Long cid){
         List<Brand> brands = brandservice.queryBrandById(cid);

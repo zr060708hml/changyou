@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
+import java.util.function.LongConsumer;
 
 /**
  * @author hashen
@@ -59,44 +60,44 @@ public class SpecificationSevice {
     public void updatespecGroup(SpecGroup specGroup) {
         this.specGroupMapper.updateByPrimaryKeySelective(specGroup);
     }
-
-
     /**
      * 根据规格组的id查询具体参数
      *
      * @param gid
      * @return
      */
-    public List<SpecParam> queryParamById(Long gid) {
+    public List<SpecParam> queryParamById(Long gid, Long cid) {
         SpecParam specParam = new SpecParam();
         specParam.setGroupId(gid);
+        specParam.setCid(cid);
         return this.specParamMapper.select(specParam);
     }
 
     /**
      * 新增参数信息
+     *
      * @param specParam
      */
     public void saveSpecParam(SpecParam specParam) {
         this.specParamMapper.insertSelective(specParam);
     }
+
     /**
      * 修改参数信息
+     *
      * @param specParam
      */
-    public void updateSpecParam(SpecParam specParam){
+    public void updateSpecParam(SpecParam specParam) {
         this.specParamMapper.updateByPrimaryKey(specParam);
     }
+
     /**
      * 删除参数信息
+     *
      * @param id
      */
-    public void deleteSpecParam(Long id){
+    public void deleteSpecParam(Long id) {
         this.specParamMapper.deleteByPrimaryKey(id);
     }
 
-    public List<SpecParam> queryParamByCid(Long cid){
-        List<SpecParam> specParams = specParamMapper.queryParamByCid(cid);
-        return specParams;
-    }
 }
