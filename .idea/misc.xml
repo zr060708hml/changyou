@@ -8,6 +8,10 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/changyou-auth/pom.xml" />
+        <option value="$PROJECT_DIR$/changyou-cart/pom.xml" />
+        <option value="$PROJECT_DIR$/changyou-sms/pom.xml" />
+        <option value="$PROJECT_DIR$/changyou-upload/pom.xml" />
       </list>
     </option>
   </component>

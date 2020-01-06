@@ -5,13 +5,11 @@ import cn.changyou.item.mapper.BrandMapper;
 import cn.changyou.item.pojo.Brand;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.lang.StringUtils;
+import com.sun.corba.se.spi.orbutil.fsm.Guard;
+import com.sun.net.httpserver.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
-import javax.swing.plaf.multi.MultiLabelUI;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,29 +27,18 @@ public class BrandService {
     }
 
     /**
-     * 新增品牌
+     * 查询品牌
      *
-     * @param key    查询的条件
-     * @param desc   排序方式
      * @param page   第几页,默认是1
      * @param rows   每页显示多少行,默认是5
-     * @param sortBy 使用哪个字段排序
      * @return 分页后的数据
      */
-    public PageResult<Brand> querySpuByPage(String key, Boolean desc, Integer page, Integer rows, String sortBy) {
-        Example example = new Example(Brand.class);
-        Example.Criteria criteria = example.createCriteria();
-
-        if (StringUtils.isEmpty(key)) {
-            criteria.andLike("name", "%" + key + "%").orEqualTo("letter", key);
-        }
+    public PageResult<Brand> querySpuByPage(Integer page, Integer rows) {
         PageHelper.startPage(page, rows);
-        if (StringUtils.isNotBlank(sortBy)) {
-            example.setOrderByClause(sortBy + " " + (desc ? "desc" : "asc"));
-        }
-        List<Brand> brands = brandMapper.selectByExample(example);
-        PageInfo<Brand> pageInfo = new PageInfo<>(brands);
-        return new PageResult<>(pageInfo.getTotal(), pageInfo.getList());
+        List<Brand> brands = brandMapper.selectAll();
+        PageInfo<Brand> result = new PageInfo<>(brands);
+
+        return new PageResult<>(result.getTotal(), brands);
     }
 
     /**

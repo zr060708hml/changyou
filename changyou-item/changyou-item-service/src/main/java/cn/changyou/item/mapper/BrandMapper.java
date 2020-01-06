@@ -29,6 +29,12 @@ public interface BrandMapper extends Mapper<Brand> {
     @Delete("DELETE FROM cy_category_brand WHERE brand_id = #{bid}")
     int deleteBrandAndCategroy(@Param("bid") Long bid);
 
-    @Select("SELECT b.* from tb_brand b INNER JOIN tb_category_brand cb on b.id=cb.brand_id where cb.category_id=#{cid}")
+    /**
+     * 查询品牌名称
+     *
+     * @param cid 分类id
+     * @return 品牌
+     */
+    @Select("SELECT b.* from cy_brand b INNER JOIN cy_category_brand cb on b.id=cb.brand_id where cb.category_id=#{cid}")
     List<Brand> queryBrandById(@Param("cid")Long cid);
 }
