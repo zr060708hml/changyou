@@ -82,6 +82,11 @@ public class GoodsController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * 通过skuid获取sku
+     * @param skuId
+     * @return
+     */
     @GetMapping("sku/{skuId}")
     public ResponseEntity<Sku> querySkuBySkuId(@PathVariable("skuId") Long skuId){
         Sku sku = goodsService.querySkuBySkuId(skuId);
