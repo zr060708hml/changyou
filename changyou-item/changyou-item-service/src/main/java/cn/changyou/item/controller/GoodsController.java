@@ -5,13 +5,10 @@ import cn.changyou.item.bo.SpuBo;
 import cn.changyou.item.pojo.Sku;
 import cn.changyou.item.pojo.SpuDetail;
 import cn.changyou.item.service.GoodsService;
-import net.sf.jsqlparser.expression.LongValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
