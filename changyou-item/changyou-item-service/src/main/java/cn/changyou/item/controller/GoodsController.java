@@ -85,6 +85,11 @@ public class GoodsController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * 通过spuid查询商品详情
+     * @param id spuid
+     * @return 某个商品的详情
+     */
     @GetMapping("/spu/detail/{id}")
     public ResponseEntity<SpuDetail> querySpuDetailById(@PathVariable("id") Long id){
         SpuDetail spuDetail = goodsService.querySpuDetailById(id);
