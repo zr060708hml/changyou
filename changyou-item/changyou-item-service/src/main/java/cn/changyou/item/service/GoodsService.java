@@ -5,6 +5,7 @@ import cn.changyou.item.bo.SpuBo;
 import cn.changyou.item.mapper.*;
 import cn.changyou.item.pojo.Sku;
 import cn.changyou.item.pojo.Spu;
+import cn.changyou.item.pojo.SpuDetail;
 import cn.changyou.item.pojo.Stock;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -12,9 +13,10 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
-import javax.swing.*;
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -82,6 +84,7 @@ public class GoodsService {
 
     }
 
+    @Transactional
     /**
      * 新增商品
      *
@@ -98,7 +101,7 @@ public class GoodsService {
         spu.getSpuDetail().setSpuId(spu.getId());
         int i1 = this.spuDetailMapper.insert(spu.getSpuDetail());
         saveSkuAndStock(spu.getSkus(), spu.getId());
-        if(i < 0 || i1 < 0){
+        if (i < 0 || i1 < 0) {
             return -1;
         }
         return 1;
@@ -131,7 +134,8 @@ public class GoodsService {
     }
 
     /**
-     * 删除商品信息
+     * 通过spuid删除该商品所有信息
+     *
      * @param spuid spu表的商品id
      * @return 受影响行数
      */
@@ -141,24 +145,26 @@ public class GoodsService {
         Sku sku = new Sku();
         sku.setSpuId(spuid);
         List<Sku> select = skuMapper.select(sku);
-        int i2 = skuMapper.deleteByExample(spuid);
+        Stock stock = new Stock();
         int i3 = -1;
         for (Sku sku1 : select) {
-            Long id = sku1.getId();
-            i3 = stockMapper.deleteByPrimaryKey(id);
+            stock.setSkuId(sku1.getId());
+            i3 = stockMapper.delete(stock);
         }
-        if (i > 0 && i1 > 0 && i2 > 0 && i3 > 0){
+        int i2 = skuMapper.delete(sku);
+        if (i > 0 && i1 > 0 && i2 > 0 && i3 > 0) {
             return 1;
         }
         return -1;
     }
 
     /**
-     * 查询商品详细信息 SKU
+     * 查询商品详细信息
+     *
      * @param spuId spu表的商品id
      * @return 属于spu类中的对应的sku商品
      */
-    public List<Sku> querySkuBySpuId(Long spuId){
+    public List<Sku> querySkuBySpuId(Long spuId) {
         Sku record = new Sku();
         record.setSpuId(spuId);
         List<Sku> skus = this.skuMapper.select(record);
@@ -169,18 +175,55 @@ public class GoodsService {
         return skus;
     }
 
-
-
-
-    public int updateGoods(SpuBo spu, Long spuid){
-
-
-
+    /**
+     * 修改商品信息
+     *
+     * @param spu 与相关商品的所有信息
+     * @return
+     */
+    @Transient
+    public int updateGoods(SpuBo spu) {
+        //修改spu
+        spu.setLastUpdateTime(new Date());
+        int i = this.spuMapper.updateByPrimaryKeySelective(spu);
+        //修改商品详情
+        SpuDetail spuDetail = spu.getSpuDetail();
+        spuDetail.setSpuId(spu.getId());
+        int i1 = spuDetailMapper.updateByPrimaryKeySelective(spuDetail);
+        List<Sku> skus = spu.getSkus();
+        updateSkuAndStock(skus);
         return 1;
     }
 
+    /**
+     * 修改sku和库存
+     * @param skus 某个商品下具有的不同款式的商品集合
+     */
+    private void updateSkuAndStock(List<Sku> skus){
+        for (Sku sku : skus) {
+            if(!sku.getEnable()){
+                continue;
+            }
+            sku.setLastUpdateTime(new Date());
+            skuMapper.updateByPrimaryKeySelective(sku);
+            Stock stock = new Stock();
+            stock.setSkuId(sku.getId());
+            stock.setStock(sku.getStock());
+            stockMapper.updateByPrimaryKeySelective(stock);
+            }
+    }
 
-
+    /**
+     * 商品上下架
+     * @param spuId  spu商品id
+     * @param type 要改变得状态
+     */
+    public void updateStand(Long spuId,Boolean type) {
+        Spu spu = new Spu();
+        spu.setId(spuId);
+        spu.setSaleable(type);
+        spuMapper.updateByPrimaryKeySelective(spu);
+    }
 
 
     public void setSpuMapper(SpuMapper spuMapper) {
@@ -210,4 +253,10 @@ public class GoodsService {
     public Sku querySkuBySkuId(Long skuId) {
         return skuMapper.selectByPrimaryKey(skuId);
     }
+
+    public SpuDetail querySpuDetailById(Long id) {
+        return spuDetailMapper.selectByPrimaryKey(id);
+    }
+
+
 }

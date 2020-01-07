@@ -9,6 +9,7 @@ import com.sun.corba.se.spi.orbutil.fsm.Guard;
 import com.sun.net.httpserver.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class BrandService {
      * @param cids  分类id的集合
      * @return 受影响行数
      */
+    @Transactional
     public int saveBrand(Brand brand, List<Long> cids) {
         int result1 = brandMapper.insert(brand);
         int result2 = -1;

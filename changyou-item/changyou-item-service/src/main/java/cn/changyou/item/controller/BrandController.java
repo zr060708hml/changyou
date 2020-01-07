@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.beans.Transient;
 import java.util.List;
 
 /**
