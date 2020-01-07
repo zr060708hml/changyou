@@ -3,12 +3,15 @@ package cn.changyou.item.controller;
 import cn.changyou.common.pojo.PageResult;
 import cn.changyou.item.bo.SpuBo;
 import cn.changyou.item.pojo.Sku;
+import cn.changyou.item.pojo.SpuDetail;
 import cn.changyou.item.service.GoodsService;
 import net.sf.jsqlparser.expression.LongValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -82,6 +85,12 @@ public class GoodsController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/spu/detail/{id}")
+    public ResponseEntity<SpuDetail> querySpuDetailById(@PathVariable("id") Long id){
+        SpuDetail spuDetail = goodsService.querySpuDetailById(id);
+        return ResponseEntity.ok(spuDetail);
+    }
+
     /**
      * 通过skuid获取sku
      * @param skuId
@@ -91,5 +100,28 @@ public class GoodsController {
     public ResponseEntity<Sku> querySkuBySkuId(@PathVariable("skuId") Long skuId){
         Sku sku = goodsService.querySkuBySkuId(skuId);
         return ResponseEntity.ok(sku);
+    }
+
+    /**
+     * 修改商品信息
+     * @param spuBo 商品详情信息
+     * @return  状态码
+     */
+    @PutMapping("goods")
+    public ResponseEntity<Void> updateGoods(@RequestBody SpuBo spuBo){
+        goodsService.updateGoods(spuBo);
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * 商品上下架
+     * @param spuId 商品id
+     * @param type  上架或者下架
+     * @return 状态码
+     */
+    @PutMapping("spu/out/{id}/{type}")
+    public ResponseEntity<Void> updateStand(@PathVariable("id") Long spuId,@PathVariable("type")Boolean type){
+        goodsService.updateStand(spuId,type);
+        return ResponseEntity.noContent().build();
     }
 }
