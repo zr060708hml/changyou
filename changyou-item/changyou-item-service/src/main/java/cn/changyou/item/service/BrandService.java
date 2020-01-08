@@ -5,10 +5,11 @@ import cn.changyou.item.mapper.BrandMapper;
 import cn.changyou.item.pojo.Brand;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.lang.StringUtils;
+import com.sun.corba.se.spi.orbutil.fsm.Guard;
+import com.sun.net.httpserver.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,22 +27,29 @@ public class BrandService {
         this.brandMapper = brandMapper;
     }
 
-    public PageResult<Brand> querySpuByPage(String key, Boolean desc, Integer page, Integer rows, String sortBy) {
-        Example example = new Example(Brand.class);
-        Example.Criteria criteria = example.createCriteria();
-
-        if (StringUtils.isEmpty(key)) {
-            criteria.andLike("name", "%" + key + "%").orEqualTo("letter", key);
-        }
+    /**
+     * 查询品牌
+     *
+     * @param page   第几页,默认是1
+     * @param rows   每页显示多少行,默认是5
+     * @return 分页后的数据
+     */
+    public PageResult<Brand> querySpuByPage(Integer page, Integer rows) {
         PageHelper.startPage(page, rows);
-        if (StringUtils.isNotBlank(sortBy)) {
-            example.setOrderByClause(sortBy + " " + (desc ? "desc" : "asc"));
-        }
-        List<Brand> brands = brandMapper.selectByExample(example);
-        PageInfo<Brand> pageInfo = new PageInfo<>(brands);
-        return new PageResult<>(pageInfo.getTotal(), pageInfo.getList());
+        List<Brand> brands = brandMapper.selectAll();
+        PageInfo<Brand> result = new PageInfo<>(brands);
+
+        return new PageResult<>(result.getTotal(), brands);
     }
 
+    /**
+     * 新增品牌
+     *
+     * @param brand 品牌实体
+     * @param cids  分类id的集合
+     * @return 受影响行数
+     */
+    @Transactional
     public int saveBrand(Brand brand, List<Long> cids) {
         int result1 = brandMapper.insert(brand);
         int result2 = -1;
@@ -54,6 +62,13 @@ public class BrandService {
         return 1;
     }
 
+    /**
+     * 修改品牌信息
+     *
+     * @param brand 品牌实体类
+     * @param cids  分类id的集合
+     * @return 受影响行数
+     */
     public int updateBrand(Brand brand, List<Long> cids) {
         brandMapper.updateByPrimaryKeySelective(brand);
         int i = -1;
@@ -64,12 +79,33 @@ public class BrandService {
         return i;
     }
 
-    public int deleteBrand(Long bid) {
-        int result1 = brandMapper.deleteByPrimaryKey(bid);
-        int result2 = brandMapper.deleteBrandAndCategroy(bid);
+    /**
+     * 删除品牌
+     *
+     * @param bids 品牌id的集合
+     * @return 受影响行数
+     */
+    public int deleteBrand(List<Long> bids) {
+        int result1 = -1;
+        int result2 = -1;
+        for (Long bid : bids) {
+            result1 = brandMapper.deleteByPrimaryKey(bid);
+            result2 = brandMapper.deleteBrandAndCategroy(bid);
+        }
         if (result1 < 0 || result2 < 0) {
             return -1;
         }
         return 1;
+    }
+
+    /**
+     * 查询品牌名称
+     *
+     * @param cid 分类id
+     * @return 品牌分类
+     */
+    public List<Brand> queryBrandById(Long cid) {
+        List<Brand> brands = brandMapper.queryBrandById(cid);
+        return brands;
     }
 }

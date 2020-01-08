@@ -1,4 +1,4 @@
-package cn.changyou.config;
+package cn.changyou.gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
