@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="changyou-registry" />
+        <module name="changyou-user-interface" />
+        <module name="changyou-gateway" />
+        <module name="changyou-upload" />
+        <module name="changyou-sms" />
+        <module name="changyou-item-service" />
+        <module name="changyou-common" />
+        <module name="changyou-item-interface" />
+        <module name="changyou-auth-common" />
+        <module name="changyou-user-service" />
+        <module name="changyou-cart" />
+        <module name="changyou-auth-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="changyou" target="1.8" />
+      <module name="changyou-auth" target="1.8" />
+      <module name="changyou-auth-common" target="1.8" />
+      <module name="changyou-auth-service" target="1.8" />
+      <module name="changyou-cart" target="1.8" />
+      <module name="changyou-common" target="1.8" />
+      <module name="changyou-gateway" target="1.8" />
+      <module name="changyou-item" target="1.8" />
+      <module name="changyou-item-interface" target="1.8" />
+      <module name="changyou-item-service" target="1.8" />
+      <module name="changyou-registry" target="1.8" />
+      <module name="changyou-sms" target="1.8" />
+      <module name="changyou-upload" target="1.8" />
+      <module name="changyou-user" target="1.8" />
+      <module name="changyou-user-interface" target="1.8" />
+      <module name="changyou-user-service" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="changyou-auth-common" options="-parameters" />
+      <module name="changyou-auth-service" options="-parameters" />
+      <module name="changyou-cart" options="-parameters" />
+      <module name="changyou-common" options="-parameters" />
+      <module name="changyou-gateway" options="-parameters" />
+      <module name="changyou-item-interface" options="-parameters" />
+      <module name="changyou-item-service" options="-parameters" />
+      <module name="changyou-registry" options="-parameters" />
+      <module name="changyou-sms" options="-parameters" />
+      <module name="changyou-upload" options="-parameters" />
+      <module name="changyou-user-interface" options="-parameters" />
+      <module name="changyou-user-service" options="-parameters" />
+    </option>
+  </component>
+</project>
