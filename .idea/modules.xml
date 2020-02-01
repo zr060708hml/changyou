@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/changyou.iml" filepath="$PROJECT_DIR$/changyou.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-auth/changyou-auth.iml" filepath="$PROJECT_DIR$/changyou-auth/changyou-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-auth/changyou-auth-common/changyou-auth-common.iml" filepath="$PROJECT_DIR$/changyou-auth/changyou-auth-common/changyou-auth-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-auth/changyou-auth-service/changyou-auth-service.iml" filepath="$PROJECT_DIR$/changyou-auth/changyou-auth-service/changyou-auth-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-cart/changyou-cart.iml" filepath="$PROJECT_DIR$/changyou-cart/changyou-cart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-common/changyou-common.iml" filepath="$PROJECT_DIR$/changyou-common/changyou-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-gateway/changyou-gateway.iml" filepath="$PROJECT_DIR$/changyou-gateway/changyou-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-item/changyou-item.iml" filepath="$PROJECT_DIR$/changyou-item/changyou-item.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-item/changyou-item-interface/changyou-item-interface.iml" filepath="$PROJECT_DIR$/changyou-item/changyou-item-interface/changyou-item-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-item/changyou-item-service/changyou-item-service.iml" filepath="$PROJECT_DIR$/changyou-item/changyou-item-service/changyou-item-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-registry/changyou-registry.iml" filepath="$PROJECT_DIR$/changyou-registry/changyou-registry.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-sms/changyou-sms.iml" filepath="$PROJECT_DIR$/changyou-sms/changyou-sms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-upload/changyou-upload.iml" filepath="$PROJECT_DIR$/changyou-upload/changyou-upload.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-user/changyou-user.iml" filepath="$PROJECT_DIR$/changyou-user/changyou-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-user/changyou-user-interface/changyou-user-interface.iml" filepath="$PROJECT_DIR$/changyou-user/changyou-user-interface/changyou-user-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changyou-user/changyou-user-service/changyou-user-service.iml" filepath="$PROJECT_DIR$/changyou-user/changyou-user-service/changyou-user-service.iml" />
+    </modules>
+  </component>
+</project>

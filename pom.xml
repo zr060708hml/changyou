@@ -13,6 +13,11 @@
         <module>changyou-gateway</module>
         <module>changyou-item</module>
         <module>changyou-common</module>
+        <module>changyou-auth</module>
+        <module>changyou-cart</module>
+        <module>changyou-sms</module>
+        <module>changyou-user</module>
+        <module>changyou-upload</module>
     </modules>
     <name>changyou</name>
     <description>Demo project for Spring Boot</description>
